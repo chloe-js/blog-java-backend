@@ -1,9 +1,6 @@
 package com.blogPosts.userSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
@@ -12,6 +9,7 @@ public class User {
     private int id;
     private String title;
     private String name;
+    @Column(length = 1000)/// may or may not help with character length
     private String review;
     private String imageSrc;
 

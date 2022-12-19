@@ -20,7 +20,10 @@ public class UserController {
         userService.saveUser(user);
         return "New user review is added"; // message passed to postman with 200 pass
     }
-    ////add this comment
+//    @PostMapping("/add") // this will save the data AND UPDATE but it doesnt work with string so trying user into the database
+//    public User add(@RequestBody User user) {
+//        return userService.saveUser(user);
+//    }
 
     @GetMapping("/getAll")
     public List<User> getAllUsers(){
