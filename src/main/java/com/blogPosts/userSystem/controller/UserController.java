@@ -20,7 +20,6 @@ public class UserController {
         userService.saveUser(user);
         return "New user review is added"; // message passed to postman with 200 pass
     }
-    ////add this comment
 
     @GetMapping("/getAll")
     public List<User> getAllUsers(){
