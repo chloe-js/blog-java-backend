@@ -10,8 +10,10 @@ public class User {
     @Id //make it the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementation
     private int id;
+    private String title;
     private String name;
     private String review;
+    private String imageSrc;
 
     //create the contractor === ctrl + enter ===select none
     public User() {
@@ -20,6 +22,22 @@ public class User {
     //create the getter and setter === ctrl + enter ===select ALL
     public int getId() {
         return id;
+    }
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setId(int id) {
