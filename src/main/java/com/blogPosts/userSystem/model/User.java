@@ -2,16 +2,47 @@ package com.blogPosts.userSystem.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+//import java.util.Date;
+
 @Entity
 public class User {
     @Id //make it the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementation
     private int id;
+
     private String title;
     private String name;
     @Column(length = 1000)/// may or may not help with character length
     private String review;
     private String imageSrc;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date LastUpdate;
+
+    @PrePersist
+    private void onCreate() {
+        LastUpdate = new Date();
+    }
+
+    public Date getLastUpdate() {
+        return LastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        LastUpdate = lastUpdate;
+    }
+//    @Column(name = "CREATED_DATE")
+//    LocalDate date;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(nullable = false)
+//    private Date LastUpdate;
+//
+//    @PrePersist
+//    private void onCreate() {
+//        LastUpdate = new Date();
+//    }
 
     //create the contractor === ctrl + enter ===select none
     public User() {
@@ -33,6 +64,14 @@ public class User {
     public String getTitle() {
         return title;
     }
+
+//    public Date getLastUpdate() {
+//        return LastUpdate;
+//    }
+//
+//    public void setLastUpdate(Date lastUpdate) {
+//        LastUpdate = lastUpdate;
+//    }
 
     public void setTitle(String title) {
         this.title = title;
