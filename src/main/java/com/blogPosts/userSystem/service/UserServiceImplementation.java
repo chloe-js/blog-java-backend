@@ -20,5 +20,15 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll(); // followed up in UserController
+        // findAll connects to userRepository which is a JPA Interface === provides the methods to use
+    }
+    public User get(Integer id){
+        return userRepository.findById(id).get();
+    }
+
+    public void save(User user) {
+    }
+    public void delete(Integer id) {
+        userRepository.deleteById(id);
     }
 }
