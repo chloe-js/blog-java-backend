@@ -16,9 +16,9 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/add") // this will save the data into the database
-    public String add(@RequestBody User user) {
-        userService.saveUser(user);
-        return "New user review is added"; // message passed to postman with 200 pass
+    public User add(@RequestBody User user) {
+
+        return userService.saveUser(user); // message passed to postman with 200 pass
     }
 
     @GetMapping("/getAll")
