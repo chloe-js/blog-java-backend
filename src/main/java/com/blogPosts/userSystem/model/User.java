@@ -1,6 +1,7 @@
 package com.blogPosts.userSystem.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Date;
 //import java.util.Date;
@@ -10,19 +11,22 @@ public class User {
     @Id //make it the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto incrementation
     private int id;
-
+@NotBlank
     private String title;
     private String name;
     @Column(length = 1000)/// may or may not help with character length
     private String review;
     private String imageSrc;
 
+
+
+
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Date LastUpdate;
 
     @PrePersist
-    private void onCreate() {
+    public void onCreate() {
         LastUpdate = new Date();
     }
 
@@ -33,6 +37,10 @@ public class User {
     public void setLastUpdate(Date lastUpdate) {
         LastUpdate = lastUpdate;
     }
+
+
+
+
 //    @Column(name = "CREATED_DATE")
 //    LocalDate date;
 //    @Temporal(TemporalType.TIMESTAMP)

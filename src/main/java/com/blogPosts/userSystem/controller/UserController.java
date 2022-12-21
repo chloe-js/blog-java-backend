@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController //this will allow response body and controller at the same time
-@RequestMapping("/user") // use to create the path
+@RequestMapping("/user") // use to create the path, use map request to spring controller methods
 @CrossOrigin //this will tell springboot application to connect to other applications// CORS will block communication between local hosts === UserController in Java
 public class UserController {
     // what we want injected into the service
     @Autowired
     private UserService userService;
-
+//    @Autowired
+//    private UserServiceImplementation userServiceImplementation;
     @PostMapping("/add") // this will save the data into the database
     public String add(@RequestBody User user) {
         userService.saveUser(user);
@@ -39,7 +40,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> get(@PathVariable Integer id) {
         try {
-            User user = userService.get(id);
+            User user=userService.get(id);
             return new ResponseEntity<User>(user, HttpStatus.OK);
 
         } catch (NoSuchElementException e) {
@@ -50,14 +51,29 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@RequestBody User user, @PathVariable Integer id) {
         try {
-            User existingUser = userService.get(id);
-            userService.save(user);
+            User existingUser=userService.get(id);
+            existingUser.setTitle(user.getTitle());
+            existingUser.setName(user.getName());
+            existingUser.setReview(user.getReview());
+            existingUser.setImageSrc(user.getImageSrc());
+//            existingUser.setLastUpdate(user.getLastUpdate());
+//            User asd = userServiceImplementation.get(id);
+//            System.out.println(id);
+//            System.out.println(existingUser);
+            userService.save(existingUser);
+//            userService.saveUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (NoSuchElementException e) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }
+
+//    @PostMapping("/add") // this will save the data into the database
+//    public String add(@RequestBody User user) {
+//        userService.saveUser(user);
+//        return "New user review is added"; // message passed to postman with 200 pass
+//    }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id){

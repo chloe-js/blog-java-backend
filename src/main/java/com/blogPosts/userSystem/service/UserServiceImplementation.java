@@ -26,9 +26,10 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findById(id).get();
     }
 
-    public void save(User user) {
-    }
     public void delete(Integer id) {
         userRepository.deleteById(id);
+    }
+    public void save(User user) {
+        userRepository.save(user);
     }
 }
