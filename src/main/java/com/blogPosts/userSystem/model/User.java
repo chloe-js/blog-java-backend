@@ -17,8 +17,9 @@ public class User {
 @NotBlank
     private String title;
     private String name;
-    @Column(length = 1000)/// may or may not help with character length
+    @Column(length = 3000)/// may or may not help with character length
     private String review;
+    @Column(length = 1000)
     private String imageSrc;
 
     //create the contractor === ctrl + enter ===select none
