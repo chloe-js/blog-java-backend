@@ -44,7 +44,7 @@ public class User {
 //        LastUpdate = new Date();
 //    }
 
-    //create the contractor === ctrl + enter ===select none
+    //create the constructor === ctrl + enter ===select none
     public User() {
     }
 
