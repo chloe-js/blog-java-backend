@@ -2,10 +2,8 @@ package com.blogPosts.userSystem.controller;
 
 import com.blogPosts.userSystem.model.User;
 import com.blogPosts.userSystem.service.UserService;
-import com.blogPosts.userSystem.service.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,20 +14,15 @@ import java.util.NoSuchElementException;
 @RequestMapping("/user") // use to create the path, use map request to spring controller methods
 @CrossOrigin //this will tell springboot application to connect to other applications// CORS will block communication between local hosts === UserController in Java
 public class UserController {
-    // what we want injected into the service
-    @Autowired
+
+    @Autowired // what we want injected into the service
     private UserService userService;
-//    @Autowired
-//    private UserServiceImplementation userServiceImplementation;
+
     @PostMapping("/add") // this will save the data into the database
     public String add(@RequestBody User user) {
         userService.saveUser(user);
         return "New user review is added"; // message passed to postman with 200 pass
     }
-//    @PostMapping("/add") // this will save the data AND UPDATE but it doesnt work with string so trying user into the database
-//    public User add(@RequestBody User user) {
-//        return userService.saveUser(user);
-//    }
 
     @GetMapping("/getAll")
     public List<User> getAllUsers(){
@@ -51,17 +44,13 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@RequestBody User user, @PathVariable Integer id) {
         try {
+//            System.out.println(id);
             User existingUser=userService.get(id);
             existingUser.setTitle(user.getTitle());
             existingUser.setName(user.getName());
             existingUser.setReview(user.getReview());
             existingUser.setImageSrc(user.getImageSrc());
-//            existingUser.setLastUpdate(user.getLastUpdate());
-//            User asd = userServiceImplementation.get(id);
-//            System.out.println(id);
-//            System.out.println(existingUser);
             userService.save(existingUser);
-//            userService.saveUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (NoSuchElementException e) {
@@ -69,15 +58,21 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/add") // this will save the data into the database
-//    public String add(@RequestBody User user) {
-//        userService.saveUser(user);
-//        return "New user review is added"; // message passed to postman with 200 pass
-//    }
-
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Integer id){
         userService.delete(id);
         return "Delete Student with id " + id;
     }
+
+//    do not use STILL NEEDS WORK
+//    @GetMapping("/{email}")
+//    public ResponseEntity<User> get(@PathVariable String email) {
+//        try {
+//            User user=userService.get(Integer.valueOf(email));
+//            return new ResponseEntity<User>(user, HttpStatus.OK);
+//
+//        } catch (NoSuchElementException e) {
+//            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

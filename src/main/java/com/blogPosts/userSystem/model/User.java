@@ -1,10 +1,13 @@
 package com.blogPosts.userSystem.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Persister;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-//import java.util.Date;
 
 @Entity
 public class User {
@@ -18,43 +21,61 @@ public class User {
     private String review;
     private String imageSrc;
 
-
-
-
-    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(nullable = false)
-    private Date LastUpdate;
-
-    @PrePersist
-    public void onCreate() {
-        LastUpdate = new Date();
-    }
-
-    public Date getLastUpdate() {
-        return LastUpdate;
-    }
-
-    public void setLastUpdate(Date lastUpdate) {
-        LastUpdate = lastUpdate;
-    }
-
-
-
-
-//    @Column(name = "CREATED_DATE")
-//    LocalDate date;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(nullable = false)
-//    private Date LastUpdate;
-//
-//    @PrePersist
-//    private void onCreate() {
-//        LastUpdate = new Date();
-//    }
-
     //create the contractor === ctrl + enter ===select none
     public User() {
     }
+//    @Email //needs @ in the string
+//    private String email;
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Date createdAt;
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updateAt;
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
+
+// CHANGED
+//    @Temporal(TemporalType.TIMESTAMP)
+////    @Column(nullable = false)
+//    private Date LastUpdate;
+//
+//    @PrePersist
+//    public void onCreate() {
+//        LastUpdate = new Date();
+//    }
+//
+//    public Date getLastUpdate() {
+//        return LastUpdate;
+//    }
+//
+//    public void setLastUpdate(Date lastUpdate) {
+//        LastUpdate = lastUpdate;
+//    }
 
     //create the getter and setter === ctrl + enter ===select ALL
     public int getId() {
@@ -72,14 +93,6 @@ public class User {
     public String getTitle() {
         return title;
     }
-
-//    public Date getLastUpdate() {
-//        return LastUpdate;
-//    }
-//
-//    public void setLastUpdate(Date lastUpdate) {
-//        LastUpdate = lastUpdate;
-//    }
 
     public void setTitle(String title) {
         this.title = title;
